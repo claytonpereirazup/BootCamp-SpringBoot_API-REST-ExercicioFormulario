@@ -1,4 +1,4 @@
-package br.com.zup.avaliacao.form;
+package br.com.zup.avaliacao.controller.form;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;

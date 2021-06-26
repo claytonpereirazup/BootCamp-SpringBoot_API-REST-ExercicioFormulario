@@ -1,4 +1,4 @@
-package br.com.zup.avaliacao.dto;
+package br.com.zup.avaliacao.controller.dto;
 
 public class AlunoDto {
 	
