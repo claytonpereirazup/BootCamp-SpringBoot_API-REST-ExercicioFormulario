@@ -1,26 +1,22 @@
 package br.com.zup.avaliacao.controller.dto;
 
+import br.com.zup.avaliacao.modelo.Aluno;
+
 public class AlunoDto {
 	
 	private String nome;
-	private Integer idade;
 	private String email;
 	
 	public AlunoDto() {
 	}
 
-	public AlunoDto(String nome, Integer idade, String email) {
-		this.nome = nome;
-		this.idade = idade;
-		this.email = email;
+	public AlunoDto(Aluno entity) {
+		this.nome = entity.getNome();
+		this.email = entity.getEmail();
 	}
 
 	public String getNome() {
 		return nome;
-	}
-
-	public Integer getIdade() {
-		return idade;
 	}
 
 	public String getEmail() {

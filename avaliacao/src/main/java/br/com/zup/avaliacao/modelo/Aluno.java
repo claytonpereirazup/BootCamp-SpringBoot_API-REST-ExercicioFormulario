@@ -1,11 +1,16 @@
 package br.com.zup.avaliacao.modelo;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+
+import br.com.zup.avaliacao.controller.dto.AlunoDto;
 
 @Entity
 @Table(name = "tb_aluno")
@@ -28,7 +33,6 @@ public class Aluno {
 		this.idade = idade;
 		this.email = email;
 	}
-
 
 	public Long getId() {
 		return id;
@@ -54,6 +58,13 @@ public class Aluno {
 	public void setEmail(String email) {
 		this.email = email;
 	}
+	
+	//metodo conversor de Entidade -> Dto
+	public static List<AlunoDto> converteEntidadeParaDto(List<Aluno> aluno) {	
+		return aluno.stream().map(x -> new AlunoDto(x)).collect(Collectors.toList());
+	}
+
+
 	@Override
 	public String toString() {
 		return "Aluno [id=" + id + ", nome=" + nome + ", idade=" + idade + ", email=" + email + "]";
@@ -81,7 +92,6 @@ public class Aluno {
 			return false;
 		return true;
 	}
-	
-	
 
+	
 }
