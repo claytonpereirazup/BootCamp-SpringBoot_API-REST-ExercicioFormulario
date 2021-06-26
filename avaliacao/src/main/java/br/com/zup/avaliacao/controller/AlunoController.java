@@ -3,14 +3,20 @@ package br.com.zup.avaliacao.controller;
 import java.util.List;
 import java.util.Optional;
 
+import javax.transaction.Transactional;
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.zup.avaliacao.controller.dto.AlunoDto;
 import br.com.zup.avaliacao.controller.dto.AlunoDtoDetalhe;
+import br.com.zup.avaliacao.controller.form.AlunoForm;
 import br.com.zup.avaliacao.modelo.Aluno;
 import br.com.zup.avaliacao.repository.AlunoRepository;
 
@@ -34,8 +40,17 @@ public class AlunoController {
 	@GetMapping("/{id}")
 	public AlunoDtoDetalhe listarPorId(@PathVariable Long id) {
 	Optional<Aluno> obj = alunoRepository.findById(id);
-	Aluno aluno = obj.get();
-	return new AlunoDtoDetalhe(aluno);
+	//Aluno aluno = obj.get();
+	return new AlunoDtoDetalhe(obj.get());
+	}
+	
+	@PostMapping
+	@Transactional
+	public AlunoDto cadastra(@RequestBody @Valid AlunoForm form) {
+		Aluno aluno = form.converteFomParaEntidade(form);
+		alunoRepository.save(aluno);
+		
+		return new AlunoDto(aluno);
 	}
 
 }
