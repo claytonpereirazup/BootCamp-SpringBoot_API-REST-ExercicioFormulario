@@ -1,6 +1,7 @@
 package br.com.zup.avaliacao.controller.form;
 
 import javax.validation.constraints.Email;
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -13,10 +14,10 @@ public class AlunoForm {
 	@Size(min = 5, max = 30, message = "Deve estar entre 3 e 30 Caracteres")
 	private String nome;
 	@NotNull(message = "Campo Obrigatório")
+	@Min(value = 18, message = "A idade deve ser maior ou igual a 18 anos")
 	private Integer idade;
 	@Email(message = "Deve ser um e-mail válido")
-	@NotBlank(message = "Campo Obrigatório")
-	@Size(min = 15, max = 40, message = "Deve estar entre 10 e 40 Caracteres")
+	@Size(min = 10, max = 40, message = "Deve estar entre 10 e 40 Caracteres")
 	private String email;
 	
 	public AlunoForm() {
