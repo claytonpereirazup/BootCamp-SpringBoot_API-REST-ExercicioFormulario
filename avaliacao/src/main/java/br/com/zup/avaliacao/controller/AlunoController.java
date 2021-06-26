@@ -7,12 +7,14 @@ import javax.transaction.Transactional;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.util.UriComponentsBuilder;
 
 import br.com.zup.avaliacao.controller.dto.AlunoDto;
 import br.com.zup.avaliacao.controller.dto.AlunoDtoDetalhe;
@@ -38,19 +40,23 @@ public class AlunoController {
 	}
 	
 	@GetMapping("/{id}")
-	public AlunoDtoDetalhe listarPorId(@PathVariable Long id) {
+	public ResponseEntity<AlunoDtoDetalhe> listarPorId(@PathVariable Long id) {
 	Optional<Aluno> obj = alunoRepository.findById(id);
-	//Aluno aluno = obj.get();
-	return new AlunoDtoDetalhe(obj.get());
+		if(obj.isPresent()) {
+			//Aluno aluno = obj.get();
+			return ResponseEntity.ok(new AlunoDtoDetalhe(obj.get()));
+		}
+	return ResponseEntity.badRequest().build();
 	}
 	
 	@PostMapping
 	@Transactional
-	public AlunoDto cadastra(@RequestBody @Valid AlunoForm form) {
+	public ResponseEntity<AlunoDto> cadastra(@RequestBody @Valid AlunoForm form, UriComponentsBuilder uriBuilder) {
 		Aluno aluno = form.converteFomParaEntidade(form);
 		alunoRepository.save(aluno);
-		
-		return new AlunoDto(aluno);
+			//URI uri = uriBuilder.path("/alunos/{id}").buildAndExpand(aluno.getId()).toUri();
+			//return ResponseEntity(uri).body(new AlunoDto(aluno));
+	return ResponseEntity.ok().build();
 	}
 
 }

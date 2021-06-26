@@ -10,14 +10,14 @@ import br.com.zup.avaliacao.modelo.Aluno;
 
 public class AlunoForm {
 	
-	@NotBlank(message = "Campo Obrigatório")
-	@Size(min = 5, max = 30, message = "Deve estar entre 3 e 30 Caracteres")
+	@NotBlank
+	@Size(min = 5, max = 30)
 	private String nome;
-	@NotNull(message = "Campo Obrigatório")
-	@Min(value = 18, message = "A idade deve ser maior ou igual a 18 anos")
+	@NotNull
+	@Min(value = 18)
 	private Integer idade;
-	@Email(message = "Deve ser um e-mail válido")
-	@Size(min = 10, max = 40, message = "Deve estar entre 10 e 40 Caracteres")
+	@Email
+	@Size(min = 10, max = 40)
 	private String email;
 	
 	public AlunoForm() {
@@ -49,7 +49,7 @@ public class AlunoForm {
 	
 	//metodo conversor de Form -> Entidade
 	public Aluno converteFomParaEntidade(AlunoForm form) {
-		return new Aluno(null, nome, idade, email);
+		return new Aluno(nome, idade, email);
 	}
 	
 	

@@ -27,8 +27,7 @@ public class Aluno {
 	public Aluno() {
 	}
 	
-	public Aluno(Long id, String nome, Integer idade, String email) {
-		this.id = id;
+	public Aluno(String nome, Integer idade, String email) {
 		this.nome = nome;
 		this.idade = idade;
 		this.email = email;
